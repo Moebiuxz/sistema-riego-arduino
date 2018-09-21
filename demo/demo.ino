@@ -46,6 +46,20 @@ void setup() {
 int n = 0;
 
 void loop() {
+
+  // append a new value to /hitorial
+  String name = Firebase.pushFloat("hitorial/sensor",12);
+  // handle error
+  if (Firebase.failed()) {
+      Serial.print("pushing /logs failed:");
+      Serial.println(Firebase.error());  
+      return;
+  }
+  Serial.print("pushed: /logs/");
+  Serial.println(name);
+  delay(1000);
+  
+  
   // set value
   Firebase.setFloat("number", 42.0);
   // handle error
@@ -95,15 +109,4 @@ void loop() {
   }
   delay(1000);
 
-  // append a new value to /logs
-  String name = Firebase.pushInt("logs", n++);
-  // handle error
-  if (Firebase.failed()) {
-      Serial.print("pushing /logs failed:");
-      Serial.println(Firebase.error());  
-      return;
-  }
-  Serial.print("pushed: /logs/");
-  Serial.println(name);
-  delay(1000);
 }
